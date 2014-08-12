@@ -1,6 +1,5 @@
 
 #casSettings fieldset{
-
     border-bottom: 1px solid #DDD;
     border-left: 1px solid #DDD;
     border-right: 1px solid #DDD;
@@ -8,6 +7,16 @@
 }
 
 #casSettings input[type="text"] {
-    margin-left: 15px;
     width: 15em;
+    margin-left: 3px;
+}
+
+#casSettings label {
+    display: inline-block;
+    width: 31em;
+}
+
+#casSettings label.checkbox {
+    display: inline;
+    width: auto;
 }

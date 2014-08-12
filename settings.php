@@ -29,6 +29,7 @@ $params = array('cas_server_version', 'cas_server_hostname', 'cas_server_port', 
 	'cas_debug_file','cas_php_cas_path', 'cas_link_to_ldap_backend');
 
 OCP\Util::addscript('user_cas', 'settings');
+OCP\Util::addStyle('user_cas', 'settings');
 
 if ($_POST) {
 	// CSRF check
