@@ -26,7 +26,7 @@ OC_Util::checkAdminUser();
 
 $params = array('cas_server_version', 'cas_server_hostname', 'cas_server_port', 'cas_server_path', 'cas_autocreate', 'cas_update_user_data',
 	'cas_protected_groups', 'cas_default_group', 'cas_email_mapping', 'cas_displayName_mapping','cas_group_mapping','cas_cert_path',
-	'cas_debug_file','cas_php_cas_path', 'cas_link_to_ldap_backend');
+	'cas_debug_file', 'cas_php_cas_path', 'cas_link_to_ldap_backend', 'cas_disable_logout');
 
 OCP\Util::addscript('user_cas', 'settings');
 OCP\Util::addStyle('user_cas', 'settings');
@@ -39,7 +39,7 @@ if ($_POST) {
 		if (isset($_POST[$param])) {
 			OCP\Config::setAppValue('user_cas', $param, $_POST[$param]);
 		}
-	        elseif (in_array($param,array('cas_autocreate','cas_update_user_data','cas_link_to_ldap_backend'))) {
+	        elseif (in_array($param,array('cas_autocreate','cas_update_user_data','cas_link_to_ldap_backend','cas_disable_logout'))) {
 			// unchecked checkboxes are not included in the post paramters
 			OCP\Config::setAppValue('user_cas', $param, 0);
 		}
