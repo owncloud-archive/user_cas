@@ -64,7 +64,7 @@ if (OCP\App::isEnabled('user_cas')) {
 	if (!OCP\User::isLoggedIn()) {
 
 		// Load js code in order to render the CAS link and to hide parts of the normal login form
-		OCP\Util::addScript('user_cas', 'utils');
+		OCP\Util::addScript('user_cas', 'login');
 	}
 
 }
