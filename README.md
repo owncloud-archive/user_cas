@@ -85,7 +85,7 @@ If you set the "protected groups" field, those groups will not be unlinked from 
 Bugs & Support
 ==============
 
-Please contribute bug reports and feedback to https://github.com/alysisLeonis/apps/issues 
+Please contribute bug reports and feedback to https://github.com/owncloud/user_cas/issues 
 If you are observing undesired behaviour, think it is a bug and want to tell us about, please include following parts:
 * What led up to the situation?
 * What exactly did you do (or not do) that was effective (or ineffective)?
