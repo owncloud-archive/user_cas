@@ -111,6 +111,10 @@ class OC_USER_CAS_Hooks {
 
 
 	static public function logout($parameters) {
+		if (\OCP\Config::getAppValue('user_cas', 'cas_disable_logout', false)) {
+			return true;
+		}
+
 		$casBackend = OC_USER_CAS::getInstance();
 
 		if (phpCAS::isAuthenticated()) 
