@@ -1,19 +1,13 @@
-user_cas
-===========
-
-
 INTRODUCTION
 ============
 
 This App provide CAS authentication support, using the phpCAS library of Jasig.
 
-CAS authentication can be linked with user_ldap plugins to recognize user logged with
-user_cas as the same if logged with user_ldap.
 
 INSTALLATION
 ============
 
-PREVIOUS DEPENDENCE
+DEPENDENCIES
 -------------------
 
 This app requires the phpCAS library of Jasig. https://wiki.jasig.org/display/casc/phpcas
@@ -47,16 +41,16 @@ CAS Server
 
 **Certification file**: If you don't want to validate the certificate (i.e. self-signed certificates) then leave this blank. Otherwise enter the path to the certificate.
 
-** Disable CAS logout**: If checked, you will only be logged out from owncloud
+**Disable CAS logout**: If checked, you will only be logged out from owncloud
 
 Basic
 -----
 
-**Autocreate user**: This option enables automatic creation of users authenticated against CAS. This means, users which do not exist in the database yet authenticate against CAS and the app will create and store them in the database on their first login. You might don't want this if you check "Link to LDAP backend" Default: on.
+**Autocreate user**: This option enables automatic creation of users authenticated against CAS. This means, users which do not exist in the database yet authenticat against CAS and the app will create and store them in the database on their first login. Default: on.
 
 **Update user**: This option uses the data provided by CAS to update user attributes each time they log in.
 
-**Link to LDAP backend**: Link CAS authentication with LDAP users and groups backend to use same owncloud user than if user logged with LDAP.
+**Link to LDAP backend**: Link CAS authentication with LDAP users and groups backend to use the same owncloud user as if the user was logged in via LDAP.
 
 Mapping
 -------
@@ -81,9 +75,42 @@ Setting up the PHP-CAS library options :
 EXTRA INFO
 ==========
 
-* If you enable the "Autocreate user after CAS login" option, a user will be created if he does not exist. If this option is disabled and the user does not exist, then the user will be not allowed to log in ownCloud.
+* If you enable the "Autocreate user after CAS login" option, a user will be created if he does not exist. If this option is disabled and the user does not exist, then the user will be not allowed to log in ownCloud. You might don't want this if you check "Link to LDAP backend"
 
 * If you enable the "Update user data" option, the app updates the user's email and group membership.
 
   By default the CAS App will unlink all the groups from a user and will provide the group defined at the groupMapping attribute. If the groupMapping is not defined, the value of the defaultGroup field will be used instead. If both are undefined, then the user will be set with no groups.
 If you set the "protected groups" field, those groups will not be unlinked from the user.
+
+Bugs & Support
+==============
+
+Please contribute bug reports and feedback to https://github.com/alysisLeonis/apps/issues 
+If you are observing undesired behaviour, think it is a bug and want to tell us about, please include following parts:
+* What led up to the situation?
+* What exactly did you do (or not do) that was effective (or ineffective)?
+* What was the outcome of this action?
+* What outcome did you expect instead?
+
+ABOUT
+=====
+
+License
+-------
+
+AGPL - http://www.gnu.org/licenses/agpl-3.0.html
+
+Authors
+-------
+
+* Sixto Martin Garcia - https://github.com/pitbulk
+* David Willinger (Leonis Holding)  - https://github.com/leoniswebDAVe
+* Florian Hintermeier (Leonis Holding)  - https://github.com/leonisCacheFlo
+* brenard - https://github.com/brenard
+
+Links
+-------
+* Leonis Holding - http://www.leonis.at/
+* Alysis & Leonis @ GitHub - https://github.com/alysisLeonis
+* ownCloud - http://owncloud.org
+* ownCloud @ GitHub - https://github.com/owncloud
