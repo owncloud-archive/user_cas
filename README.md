@@ -47,10 +47,12 @@ CAS Server
 
 **Certification file**: If you don't want to validate the certificate (i.e. self-signed certificates) then leave this blank. Otherwise enter the path to the certificate.
 
+** Disable CAS logout**: If checked, you will only be logged out from owncloud
+
 Basic
 -----
 
-**Autocreate user**: This option enables automatic creation of users authenticated against CAS. This means, users which do not exist in the database yet authenticat against CAS and the app will create and store them in the database on their first login. Default: on.
+**Autocreate user**: This option enables automatic creation of users authenticated against CAS. This means, users which do not exist in the database yet authenticate against CAS and the app will create and store them in the database on their first login. You might don't want this if you check "Link to LDAP backend" Default: on.
 
 **Update user**: This option uses the data provided by CAS to update user attributes each time they log in.
 
@@ -72,7 +74,7 @@ PHP-CAS Library
 
 Setting up the PHP-CAS library options :
 
-**PHP CAS path (CAS.php file)**: Set path to CAS.php file of the library to use.
+**PHP CAS path (CAS.php file)**: Set path to CAS.php file of the library to use. Usually the path will be /usr/share/php/CAS.php
 
 **PHP CAS debug file**: Set path to the debug file.
 
