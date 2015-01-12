@@ -39,7 +39,7 @@ if (OCP\App::isEnabled('user_cas')) {
 	OCP\Util::connectHook('OC_User', 'post_login', 'OC_USER_CAS_Hooks', 'post_login');
 	OCP\Util::connectHook('OC_User', 'logout', 'OC_USER_CAS_Hooks', 'logout');
 
-	$force_login = OCP\Config::getAppValue('user_cas', 'cas_force_login', false) && shouldEnforceAuthentication();
+	$force_login = shouldEnforceAuthentication();
 
 	if( (isset($_GET['app']) && $_GET['app'] == 'user_cas') || $force_login ) {
 
@@ -77,6 +77,10 @@ if (OCP\App::isEnabled('user_cas')) {
 function shouldEnforceAuthentication()
 {
 	if (OC::$CLI) {
+		return false;
+	}
+
+	if (OCP\Config::getAppValue('user_cas', 'cas_force_login', false) === false) {
 		return false;
 	}
 
