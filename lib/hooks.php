@@ -111,7 +111,7 @@ class OC_USER_CAS_Hooks {
 
 
 	static public function logout($parameters) {
-		if (\OCP\Config::getAppValue('user_cas', 'cas_disable_logout', false)) {
+		if (\OC::$server->getConfig()->getAppValue('user_cas', 'cas_disable_logout', false)) {
 			return true;
 		}
 
@@ -126,8 +126,9 @@ class OC_USER_CAS_Hooks {
 }
 
 function update_mail($uid, $email) {
-	if ($email != OC_Preferences::getValue($uid, 'settings', 'email', '')) {
-		OC_Preferences::setValue($uid, 'settings', 'email', $email);
+	$config = \OC::$server->getConfig();
+	if ($email != $config->getUserValue($uid, 'settings', 'email', '')) {
+		$config->setUserValue($uid, 'settings', 'email', $email);
 		OC_Log::write('cas','Set email "'.$email.'" for the user: '.$uid, OC_Log::DEBUG);
 	}
 }
