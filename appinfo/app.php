@@ -39,7 +39,9 @@ if (OCP\App::isEnabled('user_cas')) {
 	OCP\Util::connectHook('OC_User', 'post_login', 'OC_USER_CAS_Hooks', 'post_login');
 	OCP\Util::connectHook('OC_User', 'logout', 'OC_USER_CAS_Hooks', 'logout');
 
-	if( isset($_GET['app']) && $_GET['app'] == 'user_cas' ) {
+	$force_login = shouldEnforceAuthentication();
+
+	if( (isset($_GET['app']) && $_GET['app'] == 'user_cas') || $force_login ) {
 
 		if (OC_USER_CAS :: initialized_php_cas()) {
 
@@ -68,3 +70,33 @@ if (OCP\App::isEnabled('user_cas')) {
 	}
 
 }
+
+/**
+ * Check if login should be enforced using user_cas
+ */
+function shouldEnforceAuthentication()
+{
+	if (OC::$CLI) {
+		return false;
+	}
+
+	if (OCP\Config::getAppValue('user_cas', 'cas_force_login', false) === false) {
+		return false;
+	}
+
+	if (OCP\User::isLoggedIn() || isset($_GET['admin_login'])) {
+		return false;
+	}
+
+	$script = basename($_SERVER['SCRIPT_FILENAME']);
+	return !in_array(
+		$script,
+		array(
+			'cron.php',
+			'public.php',
+			'remote.php',
+			'status.php',
+		)
+	);
+}
+
