@@ -63,7 +63,7 @@ class OC_USER_CAS_Hooks {
 					OC_Log::write('cas','Using default group "'.$casBackend->defaultGroup.'" for the user: '.$uid, OC_Log::DEBUG);
 				}
 
-				if (!$userDatabase->userExists($uid)) {
+				if (!$userDatabase->userExists($uid) && $casBackend->autocreate) {
 					// create users if they do not exist
 					if (preg_match( '/[^a-zA-Z0-9 _\.@\-]/', $uid)) {
 						OC_Log::write('cas','Invalid username "'.$uid.'", allowed chars "a-zA-Z0-9" and "_.@-" ',OC_Log::DEBUG);
