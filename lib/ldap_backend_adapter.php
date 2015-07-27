@@ -49,17 +49,25 @@ class LdapBackendAdapter extends \OCA\user_ldap\USER_LDAP {
 
 	private function connect() {
 		if (!$this->connected) {
-			$prefix='s01';
+			$helper = new \OCA\user_ldap\lib\Helper();
+			$configPrefixes = $helper->getServerConfigurationPrefixes(true);
 			$this->ldap = new \OCA\user_ldap\lib\LDAP();
-			$this->connection = new \OCA\user_ldap\lib\Connection($this->ldap,$prefix);
+			$dbc = \OC::$server->getDatabaseConnection();
 			$this->usermanager = new \OCA\user_ldap\lib\user\Manager(
 				\OC::$server->getConfig(),
 				new \OCA\user_ldap\lib\FilesystemHelper(),
 				new \OCA\user_ldap\lib\LogWrapper(),
 				\OC::$server->getAvatarManager(),
-				new \OCP\Image()
+				new \OCP\Image(),
+				$dbc
 			);
+			$this->connection = new \OCA\user_ldap\lib\Connection($this->ldap,$configPrefixes[0]);
+
 			$this->access = new \OCA\user_ldap\lib\Access($this->connection, $this->ldap, $this->usermanager);
+
+			$this->access->setUserMapper(new \OCA\User_LDAP\Mapping\UserMapping($dbc));
+			$this->access->setGroupMapper(new \OCA\User_LDAP\Mapping\GroupMapping($dbc));
+
 			$this->connected = true;
 		}
 	}
