@@ -1,9 +1,10 @@
 
 <link rel="stylesheet" type="text/css" href="../apps/user_cas/css/cas.css" />
 
-<form id="cas" action="#" method="post">
+<form id="cas" class='section' action="#" method="post">
+	<h2><?php p($l->t('CAS Authentication backend')); ?></h2>
+
 	<div id="casSettings" class="personalblock">
-    <strong><?php p($l->t('CAS Authentication backend'));?></strong>
 	<ul>
 		<li><a href="#casSettings-1"><?php p($l->t('CAS Server'));?></a></li>
 	        <li><a href="#casSettings-2"><?php p($l->t('Basic'));?></a></li>
