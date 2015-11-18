@@ -73,10 +73,10 @@ class OC_USER_CAS extends OC_User_Backend {
 
 			if (!class_exists('phpCAS')) {
 				if (empty($php_cas_path)) $php_cas_path='CAS.php';
-				OC_Log::write('cas',"Try to load phpCAS library ($php_cas_path)", OC_Log::DEBUG);
+				\OCP\Util::writeLog('cas',"Try to load phpCAS library ($php_cas_path)", \OCP\Util::DEBUG);
 				include_once($php_cas_path);
 				if (!class_exists('phpCAS')) {
-					OC_Log::write('cas','Fail to load phpCAS library !', OC_Log::ERROR);
+					\OCP\Util::writeLog('cas','Fail to load phpCAS library !', \OCP\Util::ERROR);
 					return false;
 				}
 			}
@@ -117,17 +117,17 @@ class OC_USER_CAS extends OC_User_Backend {
 
 		$uid = phpCAS::getUser();
 		if ($uid === false) {
-			OC_Log::write('cas','phpCAS return no user !', OC_Log::ERROR);
+			\OCP\Util::writeLog('cas','phpCAS return no user !', \OCP\Util::ERROR);
 			return false;
 		}
 
 		if ($this->initializeLdapBackendAdapter()) {
-			OC_Log::write('cas',"Search CAS user '$uid' in LDAP", OC_Log::DEBUG);
+			\OCP\Util::writeLog('cas',"Search CAS user '$uid' in LDAP", \OCP\Util::DEBUG);
 			//Retrieve user in LDAP directory
 			$ocname = $this->ldapBackendAdapter->getUuid($uid);
 
 			if (($uid !== false) && ($ocname !== false)) {
-				OC_Log::write('cas',"Found CAS user '$uid' in LDAP with name '$ocname'", OC_Log::DEBUG);
+				\OCP\Util::writeLog('cas',"Found CAS user '$uid' in LDAP with name '$ocname'", \OCP\Util::DEBUG);
 				return $ocname;
 			}
 		}
