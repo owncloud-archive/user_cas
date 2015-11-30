@@ -42,7 +42,7 @@ class OC_USER_CAS_Hooks {
 
 
 			if ($cas_uid == $uid) {
-				OC_Log::write('cas','attr  \"'.implode(',',$cas_attributes).'\" for the user: '.$uid, OC_Log::DEBUG);
+				\OCP\Util::writeLog('cas','attr  \"'.implode(',',$cas_attributes).'\" for the user: '.$uid, \OCP\Util::DEBUG);
 
 
 				if (array_key_exists($casBackend->displayNameMapping, $cas_attributes)) 
@@ -60,18 +60,18 @@ class OC_USER_CAS_Hooks {
 				}
 				else if (!empty($casBackend->defaultGroup)) {
 					$attributes['cas_groups'] = array($casBackend->defaultGroup);
-					OC_Log::write('cas','Using default group "'.$casBackend->defaultGroup.'" for the user: '.$uid, OC_Log::DEBUG);
+					\OCP\Util::writeLog('cas','Using default group "'.$casBackend->defaultGroup.'" for the user: '.$uid, \OCP\Util::DEBUG);
 				}
 
 				if (!$userDatabase->userExists($uid) && $casBackend->autocreate) {
 					// create users if they do not exist
 					if (preg_match( '/[^a-zA-Z0-9 _\.@\-]/', $uid)) {
-						OC_Log::write('cas','Invalid username "'.$uid.'", allowed chars "a-zA-Z0-9" and "_.@-" ',OC_Log::DEBUG);
+						\OCP\Util::writeLog('cas','Invalid username "'.$uid.'", allowed chars "a-zA-Z0-9" and "_.@-" ',\OCP\Util::DEBUG);
 						return false;
 					}
 					else {
 						$random_password = OC_Util::generateRandomBytes(20);
-						OC_Log::write('cas','Creating new user: '.$uid, OC_Log::DEBUG);
+						\OCP\Util::writeLog('cas','Creating new user: '.$uid, \OCP\Util::DEBUG);
 						$userDatabase->createUser($uid, $random_password);
 
 						// after creating the user, fill the attributes
@@ -95,8 +95,8 @@ class OC_USER_CAS_Hooks {
 
 		$casBackend = OC_USER_CAS::getInstance();
 
-		OC_Log::write('cas','Updating data of the user: '.$uid,OC_Log::DEBUG);
-		OC_Log::write('cas','attr: '.implode(",",$attributes),OC_Log::DEBUG);
+		\OCP\Util::writeLog('cas','Updating data of the user: '.$uid,\OCP\Util::DEBUG);
+		\OCP\Util::writeLog('cas','attr: '.implode(",",$attributes),\OCP\Util::DEBUG);
 
 		if(isset($attributes['cas_email'])) {
 			update_mail($uid, $attributes['cas_email']);
@@ -129,12 +129,12 @@ function update_mail($uid, $email) {
 	$config = \OC::$server->getConfig();
 	if ($email != $config->getUserValue($uid, 'settings', 'email', '')) {
 		$config->setUserValue($uid, 'settings', 'email', $email);
-		OC_Log::write('cas','Set email "'.$email.'" for the user: '.$uid, OC_Log::DEBUG);
+		\OCP\Util::writeLog('cas','Set email "'.$email.'" for the user: '.$uid, \OCP\Util::DEBUG);
 	}
 }
 
 function update_name($uid, $name) {
-		OC_Log::write('cas','Set Name -'.$name.'- for the user: '.$uid, OC_Log::DEBUG);
+		\OCP\Util::writeLog('cas','Set Name -'.$name.'- for the user: '.$uid, \OCP\Util::DEBUG);
 		$casBackend = OC_USER_CAS::getInstance();
 		$casBackend->setDisplayName($uid, $name);
 }
@@ -150,23 +150,23 @@ function update_groups($uid, $groups, $protected_groups=array(), $just_created=f
 		foreach($old_groups as $group) {
 			if(!in_array($group, $protected_groups) && !in_array($group, $groups)) {
 				OC_Group::removeFromGroup($uid,$group);
-				OC_Log::write('cas','Removed "'.$uid.'" from the group "'.$group.'"', OC_Log::DEBUG);
+				\OCP\Util::writeLog('cas','Removed "'.$uid.'" from the group "'.$group.'"', \OCP\Util::DEBUG);
 			}
 		}
 	}
 
 	foreach($groups as $group) {
 		if (preg_match( '/[^a-zA-Z0-9 _\.@\-]/', $group)) {
-			OC_Log::write('cas','Invalid group "'.$group.'", allowed chars "a-zA-Z0-9" and "_.@-" ',OC_Log::DEBUG);
+			\OCP\Util::writeLog('cas','Invalid group "'.$group.'", allowed chars "a-zA-Z0-9" and "_.@-" ',\OCP\Util::DEBUG);
 		}
 		else {
 			if (!OC_Group::inGroup($uid, $group)) {
 				if (!OC_Group::groupExists($group)) {
 					OC_Group::createGroup($group);
-					OC_Log::write('cas','New group created: '.$group, OC_Log::DEBUG);
+					\OCP\Util::writeLog('cas','New group created: '.$group, \OCP\Util::DEBUG);
 				}
 				OC_Group::addToGroup($uid, $group);
-				OC_Log::write('cas','Added "'.$uid.'" to the group "'.$group.'"', OC_Log::DEBUG);
+				\OCP\Util::writeLog('cas','Added "'.$uid.'" to the group "'.$group.'"', \OCP\Util::DEBUG);
 			}
 		}
 	}
