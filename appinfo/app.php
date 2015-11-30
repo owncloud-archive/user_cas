@@ -27,6 +27,8 @@
 
 if (OCP\App::isEnabled('user_cas')) {
 
+	$CAS_DIR = OCP\Config::getSystemValue ( 'cas_dir', 'error' );
+
 	require_once 'user_cas/user_cas.php';
 
 	OCP\App::registerAdmin('user_cas', 'settings');
@@ -39,8 +41,13 @@ if (OCP\App::isEnabled('user_cas')) {
 	OCP\Util::connectHook('OC_User', 'post_login', 'OC_USER_CAS_Hooks', 'post_login');
 	OCP\Util::connectHook('OC_User', 'logout', 'OC_USER_CAS_Hooks', 'logout');
 
-	$force_login = shouldEnforceAuthentication();
-
+	// check if session is managed by cas or not
+	$isSessionManagedByCas = \OCP\App::isEnabled ( 'server_session_manager' );
+	$force_login=false;
+	
+	if(!$isSessionManagedByCas){
+		$force_login = shouldEnforceAuthentication();
+	}
 	if( (isset($_GET['app']) && $_GET['app'] == 'user_cas') || $force_login ) {
 
 		if (OC_USER_CAS :: initialized_php_cas()) {
@@ -62,8 +69,8 @@ if (OCP\App::isEnabled('user_cas')) {
 		OC_Util::redirectToDefaultPage();
 	}
 
-
-	if (!phpCAS::isAuthenticated() && !OCP\User::isLoggedIn()) {
+ 
+ 	if (!phpCAS::isAuthenticated() && !OCP\User::isLoggedIn() && !$isSessionManagedByCas) {
 
 		// Load js code in order to render the CAS link and to hide parts of the normal login form
 		OCP\Util::addScript('user_cas', 'login');

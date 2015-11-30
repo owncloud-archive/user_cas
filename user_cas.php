@@ -56,8 +56,7 @@ class OC_USER_CAS extends OC_User_Backend {
 		$this->protectedGroups = explode (',', str_replace(' ', '', OCP\Config::getAppValue('user_cas', 'cas_protected_groups', '')));
 		$this->mailMapping = OCP\Config::getAppValue('user_cas', 'cas_email_mapping', '');
 		$this->displayNameMapping = OCP\Config::getAppValue('user_cas', 'cas_displayName_mapping', '');
-		$this->groupMapping = OCP\Config::getAppValue('user_cas', 'cas_group_mapping', '');
-
+		$this->groupMapping = OCP\Config::getAppValue('user_cas', 'cas_group_mapping', '');	
 		self :: initialized_php_cas();
 	}
 
@@ -84,15 +83,28 @@ class OC_USER_CAS extends OC_User_Backend {
 			if ($casDebugFile !== '') {
 				phpCAS::setDebug($casDebugFile);
 			}
-			phpCAS::client($casVersion,$casHostname,(int)$casPort,$casPath,false);
+			/**
+			 * IMPORTANT @author:mcisse:
+			 * PHP_CAS DOIT S'OCCUPER DE L'INITIALISATION DE LA SESSION SI ON VEUT QUE LE GLOBAL LOGOUT FONCTIONNE
+			 */
+			$isSessionManagedByCas = \OCP\App::isEnabled ( 'server_session_manager' );
+			phpCAS::client($casVersion,$casHostname,(int)$casPort,$casPath,$isSessionManagedByCas);
 			if(!empty($casCertPath)) {
 				phpCAS::setCasServerCACert($casCertPath);
 			}
 			else {
 				phpCAS::setNoCasServerValidation();
 			}
+			// Les hosts sont definies dans la config generale d'owncloud /config/config.php  
+			$casRealHosts = OCP\Config::getSystemValue ('casRealHosts', array());
+			/**
+			 * IMPORTANT @author:mcisse:
+			 * PHP_CAS DOIT S'OCCUPER DE LA DESTRUCTION DE LA SESSION SI ON VEUT QUE LE GLOBAL LOGOUT FONCTIONNE
+			 */
+			phpCAS::handleLogoutRequests ( $isSessionManagedByCas, $casRealHosts );
 			self :: $_initialized_php_cas = true;
 		}
+		
 		return self :: $_initialized_php_cas;
 	}
 
