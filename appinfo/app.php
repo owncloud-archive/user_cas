@@ -78,7 +78,7 @@ function shouldEnforceAuthentication()
 		return false;
 	}
 
-	if (OCP\Config::getAppValue('user_cas', 'cas_force_login', false) === false) {
+	if (OCP\Config::getAppValue('user_cas', 'cas_force_login', false) !== 'on') {
 		return false;
 	}
 
