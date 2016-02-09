@@ -6,6 +6,7 @@
 	<licence>AGPL</licence>
 	<author>Leonis Holding</author>
 	<require>7.0.1</require>
+	<version>1.1</version>
 	<types>
         <prelogin/>
         <authentication/>
