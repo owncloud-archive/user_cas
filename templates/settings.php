@@ -25,8 +25,8 @@
 		<p><label for="cas_server_port"><?php p($l->t('CAS Server Port'));?></label><input type="text" id="cas_server_port" name="cas_server_port" value="<?php p($_['cas_server_port']); ?>"></p>
 		<p><label for="cas_server_path"><?php p($l->t('CAS Server Path'));?></label><input type="text" id="cas_server_path" name="cas_server_path" value="<?php p($_['cas_server_path']); ?>"></p>
 		<p><label for="cas_service_url"><?php p($l->t('Service URL'));?></label><input type="text" id="cas_service_url" name="cas_service_url" value="<?php p($_['cas_service_url']); ?>"></p>
-        <p><label for="cas_cert_path"><?php p($l->t('Certification file path (.crt). Leave empty if dont want to validate'));?></label><input type="text" id="cas_cert_path" name="cas_cert_path" value="<?php p($_['cas_cert_path']); ?>"></p>
-        <p><input type="checkbox" id="cas_disable_logout" name="cas_disable_logout" <?php print_unescaped((($_['cas_disable_logout'] != false) ? 'checked="checked"' : '')); ?>> <label class='checkbox' for="cas_disable_logout"><?php p($l->t('Disable CAS logout (do only OwnCloud logout)'));?></label></p>
+		<p><label for="cas_cert_path"><?php p($l->t('Certification file path (.crt). Leave empty if dont want to validate'));?></label><input type="text" id="cas_cert_path" name="cas_cert_path" value="<?php p($_['cas_cert_path']); ?>"></p>
+		<p><input type="checkbox" id="cas_disable_logout" name="cas_disable_logout" <?php print_unescaped((($_['cas_disable_logout'] != false) ? 'checked="checked"' : '')); ?>> <label class='checkbox' for="cas_disable_logout"><?php p($l->t('Disable CAS logout (do only OwnCloud logout)'));?></label></p>
 	</fieldset>
 	<fieldset id="casSettings-2">
 	<p><input type="checkbox" id="cas_force_login" name="cas_force_login" <?php print_unescaped((($_['cas_force_login'] != false) ? 'checked="checked"' : '')); ?>> <label class='checkbox' for="cas_force_login"><?php p($l->t('Force user login using CAS?'));?></label></p>

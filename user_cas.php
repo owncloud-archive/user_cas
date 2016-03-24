@@ -88,9 +88,9 @@ class OC_USER_CAS extends OC_User_Backend {
 			
 			phpCAS::client($casVersion,$casHostname,(int)$casPort,$casPath,false);
 			
-            if (!empty($cas_service_url)) {
+			if (!empty($cas_service_url)) {
 				phpCAS::setFixedServiceURL($cas_service_url);
-            }
+			}
 						
 			if(!empty($casCertPath)) {
 				phpCAS::setCasServerCACert($casCertPath);
