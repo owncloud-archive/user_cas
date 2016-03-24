@@ -70,6 +70,7 @@ class OC_USER_CAS extends OC_User_Backend {
 			$casDebugFile=OCP\Config::getAppValue('user_cas', 'cas_debug_file', '');
 			$casCertPath = OCP\Config::getAppValue('user_cas', 'cas_cert_path', '');
 			$php_cas_path=OCP\Config::getAppValue('user_cas', 'cas_php_cas_path', 'CAS.php');
+			$cas_service_url = OCP\Config::getAppValue('user_cas', 'cas_service_url', '');
 
 			if (!class_exists('phpCAS')) {
 				if (empty($php_cas_path)) $php_cas_path='CAS.php';
@@ -84,7 +85,13 @@ class OC_USER_CAS extends OC_User_Backend {
 			if ($casDebugFile !== '') {
 				phpCAS::setDebug($casDebugFile);
 			}
+			
 			phpCAS::client($casVersion,$casHostname,(int)$casPort,$casPath,false);
+			
+            if (!empty($cas_service_url)) {
+				phpCAS::setFixedServiceURL($cas_service_url);
+            }
+						
 			if(!empty($casCertPath)) {
 				phpCAS::setCasServerCACert($casCertPath);
 			}

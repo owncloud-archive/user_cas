@@ -10,6 +10,7 @@ $TRANSLATIONS = array(
 "CAS Server Hostname" => "Nom d'hôte du serveur CAS",
 "CAS Server Port" => "Port du serveur CAS",
 "CAS Server Path" => "Chemin du serveur CAS",
+"Service URL" => "URL du service",
 "Certification file path (.crt). Leave empty if dont want to validate" => "Chemin du fichier de certification (.crt). Laisser vide si vous ne souhaitez pas de validation",
 "Disable CAS logout (do only OwnCloud logout)" => "Désactiver la déconnexion CAS (déconnexion d'Owncloud uniquement)",
 "Autocreate user after CAS login?" => "Créer l'utilisateur automatiquement après la connexion CAS ?",
