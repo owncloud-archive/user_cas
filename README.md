@@ -39,6 +39,8 @@ CAS Server
 
 **CAS Server Path**: The directory of your CAS. In common setups this path is /cas 
 
+**Service URL**: Service URL used to CAS authentication and redirection. Usefull when behind a reverse proxy.
+
 **Certification file**: If you don't want to validate the certificate (i.e. self-signed certificates) then leave this blank. Otherwise enter the path to the certificate.
 
 **Disable CAS logout**: If checked, you will only be logged out from owncloud
