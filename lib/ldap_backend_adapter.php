@@ -59,7 +59,8 @@ class LdapBackendAdapter extends \OCA\user_ldap\USER_LDAP {
 				new \OCA\user_ldap\lib\LogWrapper(),
 				\OC::$server->getAvatarManager(),
 				new \OCP\Image(),
-				$dbc
+				$dbc,
+				\OC::$server->getUserManager()
 			);
 			$this->connection = new \OCA\user_ldap\lib\Connection($this->ldap,$configPrefixes[0]);
 
