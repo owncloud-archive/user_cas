@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+Version 1.2
+-------------
+* fix compatibility issue with ownCloud 9.1
+
 Version 0.1.1
 -------------
 * Added CSRF protection on setting form
