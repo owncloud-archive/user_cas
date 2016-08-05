@@ -6,6 +6,7 @@
  * @author Sixto Martin <sixto.martin.garcia@gmail.com>
  * @copyright Sixto Martin Garcia. 2012
  * @copyright Leonis. 2014 <devteam@leonis.at>
+ * @copyright Takayuki NAGAI 2016
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -44,14 +45,13 @@ if (OCP\App::isEnabled('user_cas')) {
 	if( (isset($_GET['app']) && $_GET['app'] == 'user_cas') || $force_login ) {
 
 		if (OC_USER_CAS :: initialized_php_cas()) {
-
 			phpCAS::forceAuthentication();
 
-			if (!OC_User::login('', '')) {
-				$error = true;
-				\OCP\Util::writeLog('cas','Error trying to authenticate the user', \OCP\Util::DEBUG);
-			}
-		
+			$user = phpCAS::getUser();
+			$application = new \OC\Core\Application();
+			$loginController = $application->getContainer()->query('LoginController');
+			$loginController->tryLogin($user,NULL,NULL);
+
 			if (isset($_SERVER["QUERY_STRING"]) && !empty($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] != 'app=user_cas') {
 				header( 'Location: ' . OC::$WEBROOT . '/?' . $_SERVER["QUERY_STRING"]);
 				exit();
@@ -61,7 +61,6 @@ if (OCP\App::isEnabled('user_cas')) {
 		OC::$REQUESTEDAPP = '';
 		OC_Util::redirectToDefaultPage();
 	}
-
 
 	if (!phpCAS::isAuthenticated() && !OCP\User::isLoggedIn()) {
 		OC_App::registerLogIn(array('href' => '?app=user_cas', 'name' => 'CAS Login'));
