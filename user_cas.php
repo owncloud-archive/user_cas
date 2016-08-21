@@ -22,7 +22,7 @@
  *
  */
 
-#require_once(__DIR__ . '/lib/ldap_backend_adapter.php'); // Not required in 8.2, we now have an autoloader 
+require_once(__DIR__ . '/lib/ldap_backend_adapter.php');
 use OCA\user_cas\lib\LdapBackendAdapter;
 
 class OC_USER_CAS extends OC_User_Backend {

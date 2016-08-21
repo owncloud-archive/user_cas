@@ -5,6 +5,7 @@
  * @author Sixto Martin <sixto.martin.garcia@gmail.com>
  * @copyright Sixto Martin Garcia. 2012
  * @copyright Leonis. 2014 <devteam@leonis.at>
+ * @copyright Takayuki NAGAI 2016
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -30,7 +31,7 @@ class OC_USER_CAS_Hooks {
 
 		$uid = $parameters['uid'];
 		$casBackend = OC_USER_CAS::getInstance();
-		$userDatabase = new OC_User_Database;
+		$userDatabase = new OC\User\Database;
 
 		if (phpCAS::isAuthenticated()) {
 			// $cas_attributes may vary in name, therefore attributes are fetched to $attributes
@@ -70,7 +71,7 @@ class OC_USER_CAS_Hooks {
 						return false;
 					}
 					else {
-						$random_password = OC_Util::generateRandomBytes(20);
+						$random_password = \OCP\Util::generateRandomBytes(20);
 						\OCP\Util::writeLog('cas','Creating new user: '.$uid, \OCP\Util::DEBUG);
 						$userDatabase->createUser($uid, $random_password);
 

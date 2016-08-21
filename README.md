@@ -109,6 +109,7 @@ Authors
 * David Willinger (Leonis Holding)  - https://github.com/leoniswebDAVe
 * Florian Hintermeier (Leonis Holding)  - https://github.com/leonisCacheFlo
 * brenard - https://github.com/brenard
+* Takayuki Nagai - https://github.com/nagai-takayuki
 
 Links
 -------

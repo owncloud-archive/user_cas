@@ -5,6 +5,7 @@
  *
  * @author Sixto Martin <sixto.martin.garcia@gmail.com>
  * @copyright Sixto Martin Garcia. 2012
+ * @copyright Takayuki NAGAI 2016
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -29,10 +30,9 @@
  * This class come from another owncloud plugins : https://github.com/AndreasErgenzinger/user_shibboleth
  */
 
-
 namespace OCA\user_cas\lib;
 
-class LdapBackendAdapter extends \OCA\user_ldap\USER_LDAP {
+class LdapBackendAdapter extends \OCA\User_LDAP\User_LDAP {
 
 	private $enabled;
 	private $connected = false;
@@ -49,22 +49,22 @@ class LdapBackendAdapter extends \OCA\user_ldap\USER_LDAP {
 
 	private function connect() {
 		if (!$this->connected) {
-			$helper = new \OCA\user_ldap\lib\Helper();
+			$helper = new \OCA\User_LDAP\Helper();
 			$configPrefixes = $helper->getServerConfigurationPrefixes(true);
-			$this->ldap = new \OCA\user_ldap\lib\LDAP();
+			$this->ldap = new \OCA\User_LDAP\LDAP();
 			$dbc = \OC::$server->getDatabaseConnection();
-			$this->usermanager = new \OCA\user_ldap\lib\user\Manager(
+			$this->usermanager = new \OCA\User_LDAP\User\Manager(
 				\OC::$server->getConfig(),
-				new \OCA\user_ldap\lib\FilesystemHelper(),
-				new \OCA\user_ldap\lib\LogWrapper(),
+				new \OCA\User_LDAP\FilesystemHelper(),
+				new \OCA\User_LDAP\LogWrapper(),
 				\OC::$server->getAvatarManager(),
 				new \OCP\Image(),
 				$dbc,
 				\OC::$server->getUserManager()
 			);
-			$this->connection = new \OCA\user_ldap\lib\Connection($this->ldap,$configPrefixes[0]);
+			$this->connection = new \OCA\User_LDAP\Connection($this->ldap,$configPrefixes[0]);
 
-			$this->access = new \OCA\user_ldap\lib\Access($this->connection, $this->ldap, $this->usermanager);
+			$this->access = new \OCA\User_LDAP\Access($this->connection, $this->ldap, $this->usermanager);
 
 			$this->access->setUserMapper(new \OCA\User_LDAP\Mapping\UserMapping($dbc));
 			$this->access->setGroupMapper(new \OCA\User_LDAP\Mapping\GroupMapping($dbc));

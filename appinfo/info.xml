@@ -4,9 +4,9 @@
 	<name>CAS user and group backend</name>
 	<description>Authenticate Users by a CAS SERVER</description>
 	<licence>AGPL</licence>
-	<author>Leonis Holding</author>
-	<require>7.0.1</require>
-	<version>1.1</version>
+	<author>Takayuki NAGAI</author>
+	<require>9.1.0</require>
+	<version>1.2</version>
 	<types>
         <prelogin/>
         <authentication/>
