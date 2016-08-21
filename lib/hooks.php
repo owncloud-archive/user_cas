@@ -70,7 +70,7 @@ class OC_USER_CAS_Hooks {
 						return false;
 					}
 					else {
-						$random_password = OC_Util::generateRandomBytes(20);
+						$random_password = \OCP\Util::generateRandomBytes(20);
 						\OCP\Util::writeLog('cas','Creating new user: '.$uid, \OCP\Util::DEBUG);
 						$userDatabase->createUser($uid, $random_password);
 
